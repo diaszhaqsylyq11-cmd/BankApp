@@ -10,14 +10,28 @@ import {
 } from "react-native";
 import Signup from "./src/components/signup";
 import ForgotPassword from "./src/components/ForgotPassword";
-import Dashboard from "./src/components/Dashboard"; // Добавили импорт страницы личного кабинета
+import Dashboard from "./src/components/Dashboard";
+import SearchScreen from "./src/components/SearchScreen";
+import BranchScreen from "./src/components/BranchScreen";
 
 export default function App() {
   const [page, setPage] = useState<string>("login");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  // ЕСЛИ НАЖАЛИ «ВОЙТИ» — ПОКАЗЫВАЕМ СТРАНИЦУ ЛИЧНОГО КАБИНЕТА
+  if (page === "branch") {
+    return <BranchScreen onBack={() => setPage("search")} />;
+  }
+
+  if (page === "search") {
+    return (
+      <SearchScreen
+        onBack={() => setPage("dashboard")}
+        onSelectBranch={() => setPage("branch")}
+      />
+    );
+  }
+
   if (page === "dashboard") {
     return <Dashboard />;
   }
@@ -72,8 +86,7 @@ export default function App() {
             <Text style={styles.forgotText}>Забыли пароль?</Text>
           </TouchableOpacity>
 
-          {/* ПРИ НАЖАТИИ ПЕРЕКЛЮЧАЕМ НА СТРАНИЦУ DASHBOARD */}
-          <TouchableOpacity style={styles.button} onPress={() => setPage("dashboard")}>
+          <TouchableOpacity style={styles.button} onPress={() => setPage("search")}>
             <Text style={styles.buttonText}>Войти</Text>
           </TouchableOpacity>
         </View>
