@@ -26,8 +26,9 @@ export default function App() {
   if (page === "search") {
     return (
       <SearchScreen
-        onBack={() => setPage("dashboard")}
+        onBack={() => setPage("login")}
         onSelectBranch={() => setPage("branch")}
+        onHome={() => setPage("login")}
       />
     );
   }
@@ -47,7 +48,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      
+
       <View style={styles.header}>
         <View style={styles.headerTitle}>
           <Text style={styles.back}>‹</Text>

@@ -4,95 +4,94 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   SafeAreaView,
   StatusBar,
+  ScrollView,
 } from "react-native";
 
 interface Props {
   onBack?: () => void;
   onSelectBranch?: () => void;
+  onHome?: () => void;
 }
 
-export default function SearchScreen({ onBack, onSelectBranch }: Props) {
-  const items = [
-    {
-      id: "1",
-      title: "Branch",
-      subtitle: "Search for branch",
-      icon: "🏦",
-      onPress: onSelectBranch,
-    },
-    {
-      id: "2",
-      title: "Interest rate",
-      subtitle: "Search for interest rate",
-      icon: "📈",
-    },
-    {
-      id: "3",
-      title: "Exchange rate",
-      subtitle: "Search for exchange rate",
-      icon: "💱",
-    },
-    {
-      id: "4",
-      title: "Exchange",
-      subtitle: "Exchange amount of money",
-      icon: "📊",
-    },
-  ];
-
+export default function SearchScreen({ onBack, onSelectBranch, onHome }: Props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
 
-      <View style={styles.topHeader}>
-        <View style={styles.headerTitle}>
-          <TouchableOpacity onPress={onBack}>
-            <Text style={styles.back}>‹</Text>
-          </TouchableOpacity>
-          <Text style={styles.userName}>Search</Text>
-        </View>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={onBack} style={styles.backButton}>
+          <Text style={styles.backText}>‹</Text>
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Search</Text>
       </View>
 
-      <View style={styles.content}>
-        <ScrollView contentContainerStyle={styles.listContainer} showsVerticalScrollIndicator={false}>
-          {items.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              style={styles.card}
-              activeOpacity={0.7}
-              onPress={item.onPress}
-            >
-              <View style={styles.cardInfo}>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-                <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
-              </View>
-              <View style={styles.iconContainer}>
-                <Text style={styles.emojiIcon}>{item.icon}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={onSelectBranch}
+          activeOpacity={0.7}
+        >
+          <View style={styles.cardTextContainer}>
+            <Text style={styles.cardTitle}>Branch</Text>
+            <Text style={styles.cardSubtitle}>Search for branch</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Text style={styles.cardIcon}>🏦</Text>
+          </View>
+        </TouchableOpacity>
 
-        <View style={styles.bottomBar}>
-          <TouchableOpacity style={styles.grayTab}>
-            <Text style={styles.grayTabText}>🏠 Home</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.activeTabBtn}>
-            <Text style={styles.activeTab}>🔍 Search</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.grayTab}>
-            <Text style={styles.grayTabText}>✉️</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.grayTab}>
-            <Text style={styles.grayTabText}>⚙️</Text>
-          </TouchableOpacity>
+        <View style={styles.card}>
+          <View style={styles.cardTextContainer}>
+            <Text style={styles.cardTitle}>Interest rate</Text>
+            <Text style={styles.cardSubtitle}>Search for interest rate</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Text style={styles.cardIcon}>📈</Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.bottomLine} />
+        <View style={styles.card}>
+          <View style={styles.cardTextContainer}>
+            <Text style={styles.cardTitle}>Exchange rate</Text>
+            <Text style={styles.cardSubtitle}>Search for exchange rate</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Text style={styles.cardIcon}>💱</Text>
+          </View>
+        </View>
+
+        <View style={styles.card}>
+          <View style={styles.cardTextContainer}>
+            <Text style={styles.cardTitle}>Exchange</Text>
+            <Text style={styles.cardSubtitle}>Exchange amount of money</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Text style={styles.cardIcon}>📊</Text>
+          </View>
+        </View>
+      </ScrollView>
+
+      <View style={styles.bottomTab}>
+        <TouchableOpacity style={styles.tabItem} onPress={onHome}>
+          <Text style={styles.tabIcon}>🏠</Text>
+          <Text style={styles.tabText}>Home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.tabItem, styles.activeTab]}>
+          <Text style={styles.tabIconActive}>🔍</Text>
+          <Text style={styles.tabTextActive}>Search</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.tabItem}>
+          <Text style={styles.tabIcon}>✉️</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.tabItem}>
+          <Text style={styles.tabIcon}>⚙️</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -102,117 +101,109 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#3626B8",
   },
-  topHeader: {
-    backgroundColor: "#3626B8",
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-  },
-  headerTitle: {
+  header: {
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
   },
-  back: {
-    color: "#FFFFFF",
-    fontSize: 34,
-    marginRight: 12,
-    bottom: 2,
+  backButton: {
+    paddingRight: 12,
+    paddingVertical: 4,
   },
-  userName: {
+  backText: {
     color: "#FFFFFF",
-    fontSize: 20,
+    fontSize: 36,
+    fontWeight: "300",
+  },
+  headerTitle: {
+    color: "#FFFFFF",
+    fontSize: 22,
     fontWeight: "bold",
   },
   content: {
     flex: 1,
+    backgroundColor: "#F8F9FD",
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
-    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 16,
     paddingTop: 20,
   },
-  listContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 80,
-  },
   card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    padding: 18,
-    borderRadius: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: "#F0F0F5",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
+    shadowOpacity: 0.05,
     shadowRadius: 8,
-    elevation: 2,
+    elevation: 3,
   },
-  cardInfo: {
+  cardTextContainer: {
     flex: 1,
   },
   cardTitle: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#1A1D1E",
-    marginBottom: 4,
   },
   cardSubtitle: {
     fontSize: 13,
-    color: "#AAAAAA",
+    color: "#8A92A6",
+    marginTop: 4,
   },
   iconContainer: {
-    width: 48,
-    height: 48,
+    width: 44,
+    height: 44,
     borderRadius: 12,
-    backgroundColor: "#F8F9FD",
+    backgroundColor: "#F0F3FF",
     justifyContent: "center",
     alignItems: "center",
   },
-  emojiIcon: {
-    fontSize: 22,
+  cardIcon: {
+    fontSize: 20,
   },
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 65,
-    backgroundColor: "#FFFFFF",
+  bottomTab: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    paddingVertical: 10,
     borderTopWidth: 1,
-    borderTopColor: "#EAEAEA",
-    paddingHorizontal: 10,
+    borderTopColor: "#EFEFEF",
   },
-  activeTabBtn: {
-    backgroundColor: "#3626B8",
+  tabItem: {
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 6,
     borderRadius: 20,
   },
   activeTab: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
-    fontSize: 14,
+    backgroundColor: "#3626B8",
+    flexDirection: "row",
+    gap: 6,
   },
-  grayTab: {
-    padding: 10,
+  tabIcon: {
+    fontSize: 18,
+    color: "#8A92A6",
   },
-  grayTabText: {
-    color: "#888888",
+  tabIconActive: {
     fontSize: 16,
   },
-  bottomLine: {
-    width: 105,
-    height: 4,
-    backgroundColor: "#222222",
-    borderRadius: 5,
-    alignSelf: "center",
-    marginBottom: 8,
-    position: "absolute",
-    bottom: 0,
+  tabText: {
+    fontSize: 12,
+    color: "#8A92A6",
+    marginTop: 2,
+  },
+  tabTextActive: {
+    fontSize: 13,
+    color: "#FFFFFF",
+    fontWeight: "600",
   },
 });

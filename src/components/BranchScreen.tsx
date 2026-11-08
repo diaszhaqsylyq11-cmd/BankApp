@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 7,
   },
   back: {
     color: "#FFFFFF",
