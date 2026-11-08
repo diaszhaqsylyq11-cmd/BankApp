@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   View,
@@ -6,21 +5,35 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
 import Signup from "./src/components/signup";
+import ForgotPassword from "./src/components/ForgotPassword";
+import Dashboard from "./src/components/Dashboard"; // Добавили импорт страницы личного кабинета
 
 export default function App() {
-  const [page, setPage] = useState("login");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [page, setPage] = useState<string>("login");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  // ЕСЛИ НАЖАЛИ «ВОЙТИ» — ПОКАЗЫВАЕМ СТРАНИЦУ ЛИЧНОГО КАБИНЕТА
+  if (page === "dashboard") {
+    return <Dashboard />;
+  }
 
   if (page === "signup") {
     return <Signup onBack={() => setPage("login")} />;
   }
 
-  return (
-    <View style={styles.container}>
+  if (page === "forgot") {
+    return <ForgotPassword onBackToLogin={() => setPage("login")} />;
+  }
 
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      
       <View style={styles.header}>
         <View style={styles.headerTitle}>
           <Text style={styles.back}>‹</Text>
@@ -30,9 +43,7 @@ export default function App() {
 
       <View style={styles.content}>
         <Text style={styles.title}>С возвращением!</Text>
-        <Text style={styles.subtitle}>
-          Войдите в аккаунт, чтобы продолжить
-        </Text>
+        <Text style={styles.subtitle}>Войдите в аккаунт, чтобы продолжить</Text>
 
         <View style={styles.illustration}>
           <Text style={styles.lock}>🔒</Text>
@@ -45,8 +56,9 @@ export default function App() {
             placeholderTextColor="#AAAAAA"
             value={email}
             onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
-
           <TextInput
             style={styles.input}
             placeholder="Пароль"
@@ -56,11 +68,12 @@ export default function App() {
             onChangeText={setPassword}
           />
 
-          <TouchableOpacity style={styles.forgot}>
+          <TouchableOpacity style={styles.forgot} onPress={() => setPage("forgot")}>
             <Text style={styles.forgotText}>Забыли пароль?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
+          {/* ПРИ НАЖАТИИ ПЕРЕКЛЮЧАЕМ НА СТРАНИЦУ DASHBOARD */}
+          <TouchableOpacity style={styles.button} onPress={() => setPage("dashboard")}>
             <Text style={styles.buttonText}>Войти</Text>
           </TouchableOpacity>
         </View>
@@ -74,57 +87,52 @@ export default function App() {
       </View>
 
       <View style={styles.bottomLine} />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#3626B8",
   },
   header: {
-    height: 170,
+    height: 120,
     backgroundColor: "#3626B8",
     paddingHorizontal: 18,
-    paddingTop: 12,
-  },
-  time: {
-    color: "#FFFFFF",
-    fontSize: 12,
+    justifyContent: "center",
   },
   headerTitle: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 25,
   },
   back: {
     color: "#FFFFFF",
-    fontSize: 30,
+    fontSize: 34,
     marginRight: 12,
+    bottom: 2,
   },
   headerText: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
   content: {
     flex: 1,
-    marginTop: -1,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     backgroundColor: "#FFFFFF",
-    padding: 16,
+    padding: 24,
   },
   title: {
-    fontSize: 23,
+    fontSize: 24,
     fontWeight: "900",
     color: "#3926C3",
   },
   subtitle: {
-    fontSize: 12,
+    fontSize: 13,
     color: "#777777",
-    marginTop: 5,
+    marginTop: 6,
   },
   illustration: {
     width: 110,
@@ -137,29 +145,30 @@ const styles = StyleSheet.create({
     marginVertical: 28,
   },
   lock: {
-    fontSize: 38,
+    fontSize: 40,
   },
   form: {
-    gap: 10,
+    gap: 14,
   },
   input: {
-    height: 44,
+    height: 48,
     borderWidth: 1,
     borderColor: "#E0E0E5",
     borderRadius: 12,
     paddingHorizontal: 14,
-    fontSize: 13,
+    fontSize: 14,
     color: "#333333",
   },
   forgot: {
     alignSelf: "flex-end",
+    paddingVertical: 4,
   },
   forgotText: {
-    fontSize: 11,
+    fontSize: 12,
     color: "#AAAAAA",
   },
   button: {
-    height: 46,
+    height: 48,
     backgroundColor: "#3926C3",
     borderRadius: 12,
     justifyContent: "center",
@@ -168,7 +177,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFFFFF",
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "bold",
   },
   signup: {
@@ -177,11 +186,11 @@ const styles = StyleSheet.create({
     marginTop: 28,
   },
   signupText: {
-    fontSize: 11,
+    fontSize: 13,
     color: "#555555",
   },
   link: {
-    fontSize: 11,
+    fontSize: 13,
     color: "#3926C3",
     fontWeight: "bold",
   },
@@ -192,6 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: "center",
     marginBottom: 8,
+    position: "absolute",
+    bottom: 0,
   },
 });
-
