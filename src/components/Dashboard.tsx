@@ -1,136 +1,166 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 
-export default function Dashboard() {
+interface Props {
+  onNavigateToSearch?: () => void;
+}
+
+export default function Dashboard({ onNavigateToSearch }: Props) {
   return (
-    <View style={styles.screen}>
-      
-      {/* 1. СИНЯЯ ШАПКА ПОЛЬЗОВАТЕЛЯ */}
-      <View style={styles.topHeader}>
-        <Text style={styles.userName}>Hi, Push Puttichai 🔔</Text>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" />
+
+      <View style={styles.header}>
+        <Text style={styles.greeting}>Hi, Push Puttichai 🔔</Text>
       </View>
 
-      {/* 2. СИНЯЯ БАНКОВСКАЯ КАРТА */}
-      <View style={styles.bankCard}>
-        <Text style={styles.cardTextBold}>John Smith</Text>
-        <Text style={styles.cardTextSmall}>Amazon Platinium</Text>
-        <Text style={styles.cardTextMedium}>4756  ••••  ••••  9018</Text>
-        <Text style={styles.cardTextBold}>$3.469.52</Text>
-      </View>
+      <View style={styles.content}>
+        <View style={styles.card}>
+          <Text style={styles.cardName}>John Smith</Text>
+          <Text style={styles.cardType}>Amazon Platinium</Text>
+          <Text style={styles.cardNumber}>4756 •••• •••• 9018</Text>
+          <Text style={styles.cardBalance}>$3.469.52</Text>
+        </View>
 
-      {/* 3. ПРОСТОЙ СПИСОК КНОПОК МЕНЮ (3 штуки для примера) */}
-      <View style={styles.menuBox}>
-        
-        <TouchableOpacity style={styles.menuRow}>
+        <View style={styles.menuItem}>
           <Text style={styles.menuIcon}>💳</Text>
           <Text style={styles.menuText}>Account and Card</Text>
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.menuRow}>
+        <View style={styles.menuItem}>
           <Text style={styles.menuIcon}>🔀</Text>
           <Text style={styles.menuText}>Transfer</Text>
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.menuRow}>
+        <View style={styles.menuItem}>
           <Text style={styles.menuIcon}>🏛️</Text>
           <Text style={styles.menuText}>Withdraw</Text>
+        </View>
+      </View>
+
+      <View style={styles.bottomTab}>
+        <TouchableOpacity style={styles.tabItem}>
+          <Text style={styles.tabIconActive}>🏠</Text>
+          <Text style={styles.tabTextActive}>Home</Text>
         </TouchableOpacity>
 
-      </View>
+        <TouchableOpacity style={styles.tabItem} onPress={onNavigateToSearch}>
+          <Text style={styles.tabIcon}>🔍</Text>
+          <Text style={styles.tabText}>Search</Text>
+        </TouchableOpacity>
 
-      {/* 4. НИЖНЕЕ МЕНЮ (ПАНЕЛЬ НАВИГАЦИИ) */}
-      <View style={styles.bottomBar}>
-        <Text style={styles.activeTab}>🏠 Home</Text>
-        <Text style={styles.grayTab}>🔍 Search</Text>
-        <Text style={styles.grayTab}>⚙️ Settings</Text>
+        <TouchableOpacity style={styles.tabItem}>
+          <Text style={styles.tabIcon}>⚙️</Text>
+          <Text style={styles.tabText}>Settings</Text>
+        </TouchableOpacity>
       </View>
-
-    </View>
+    </SafeAreaView>
   );
 }
 
-// САМЫЕ ПРОСТЫЕ СТИЛИ (ПОДПИСАН КАЖДЫЙ БЛОК)
 const styles = StyleSheet.create({
-  // Главный контейнер всего экрана
-  screen: {
+  container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
-  },
-  // Синяя верхняя панель
-  topHeader: {
     backgroundColor: "#3626B8",
-    padding: 20,
-    paddingTop: 50,
   },
-  userName: {
+  header: {
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+  },
+  greeting: {
     color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "bold",
   },
-  // Блок банковской карты
-  bankCard: {
-    backgroundColor: "#1A73E8",
-    margin: 20,
+  content: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  card: {
+    backgroundColor: "#2B6CB0",
+    borderRadius: 20,
     padding: 20,
-    borderRadius: 15,
+    marginBottom: 20,
   },
-  cardTextBold: {
+  cardName: {
     color: "#FFFFFF",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 5,
   },
-  cardTextMedium: {
+  cardType: {
+    color: "#E2E8F0",
+    fontSize: 12,
+    marginBottom: 12,
+  },
+  cardNumber: {
     color: "#FFFFFF",
     fontSize: 16,
-    marginVertical: 10,
+    letterSpacing: 2,
+    marginBottom: 12,
   },
-  cardTextSmall: {
-    color: "#E8F0FE",
-    fontSize: 12,
+  cardBalance: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "bold",
   },
-  // Контейнер для кнопок меню
-  menuBox: {
-    paddingHorizontal: 20,
-    marginTop: 10,
-  },
-  // Одна строка меню (кнопка)
-  menuRow: {
+  menuItem: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F5F5F5",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    backgroundColor: "#F8F9FD",
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 12,
   },
   menuIcon: {
-    fontSize: 24,
-    marginRight: 15,
+    fontSize: 20,
+    marginRight: 14,
   },
   menuText: {
-    fontSize: 16,
-    color: "#333333",
-    fontWeight: "500",
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#2D3748",
   },
-  // Нижняя плашка меню
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    backgroundColor: "#FFFFFF",
+  bottomTab: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: "#EAEAEA",
+    borderTopColor: "#EFEFEF",
   },
-  activeTab: {
+  tabItem: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+  },
+  tabIcon: {
+    fontSize: 18,
+    color: "#718096",
+  },
+  tabIconActive: {
+    fontSize: 18,
+  },
+  tabText: {
+    fontSize: 12,
+    color: "#718096",
+    marginTop: 2,
+  },
+  tabTextActive: {
+    fontSize: 12,
     color: "#3626B8",
-    fontWeight: "bold",
-  },
-  grayTab: {
-    color: "#888888",
+    fontWeight: "600",
+    marginTop: 2,
   },
 });

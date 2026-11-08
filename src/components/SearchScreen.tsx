@@ -74,22 +74,19 @@ export default function SearchScreen({ onBack, onSelectBranch, onHome }: Props) 
       </ScrollView>
 
       <View style={styles.bottomTab}>
-        <TouchableOpacity style={styles.tabItem} onPress={onHome}>
-          <Text style={styles.tabIcon}>🏠</Text>
-          <Text style={styles.tabText}>Home</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[styles.tabItem, styles.activeTab]}>
-          <Text style={styles.tabIconActive}>🔍</Text>
-          <Text style={styles.tabTextActive}>Search</Text>
+        <TouchableOpacity style={[styles.tabItem, styles.activeTab]} onPress={onHome}>
+          <Text style={styles.tabIconActive}>🏠</Text>
+          <Text style={styles.tabTextActive}>Home</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.tabItem}>
-          <Text style={styles.tabIcon}>✉️</Text>
+          <Text style={styles.tabIcon}>🔍</Text>
+          <Text style={styles.tabText}>Search</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.tabItem}>
           <Text style={styles.tabIcon}>⚙️</Text>
+          <Text style={styles.tabText}>Settings</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -185,7 +182,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   activeTab: {
-    backgroundColor: "#3626B8",
     flexDirection: "row",
     gap: 6,
   },
@@ -194,7 +190,7 @@ const styles = StyleSheet.create({
     color: "#8A92A6",
   },
   tabIconActive: {
-    fontSize: 16,
+    fontSize: 18,
   },
   tabText: {
     fontSize: 12,
@@ -202,8 +198,9 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   tabTextActive: {
-    fontSize: 13,
-    color: "#FFFFFF",
+    fontSize: 12,
+    color: "#3626B8",
     fontWeight: "600",
+    marginTop: 2,
   },
 });

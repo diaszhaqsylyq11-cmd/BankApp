@@ -26,15 +26,15 @@ export default function App() {
   if (page === "search") {
     return (
       <SearchScreen
-        onBack={() => setPage("login")}
+        onBack={() => setPage("dashboard")}
         onSelectBranch={() => setPage("branch")}
-        onHome={() => setPage("login")}
+        onHome={() => setPage("dashboard")}
       />
     );
   }
 
   if (page === "dashboard") {
-    return <Dashboard />;
+    return <Dashboard onNavigateToSearch={() => setPage("search")} />;
   }
 
   if (page === "signup") {
@@ -87,7 +87,7 @@ export default function App() {
             <Text style={styles.forgotText}>Забыли пароль?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={() => setPage("search")}>
+          <TouchableOpacity style={styles.button} onPress={() => setPage("dashboard")}>
             <Text style={styles.buttonText}>Войти</Text>
           </TouchableOpacity>
         </View>
