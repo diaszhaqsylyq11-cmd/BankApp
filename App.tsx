@@ -13,6 +13,8 @@ import ForgotPassword from "./src/components/ForgotPassword";
 import Dashboard from "./src/components/Dashboard";
 import SearchScreen from "./src/components/SearchScreen";
 import BranchScreen from "./src/components/BranchScreen";
+import ExchangeRateScreen from "./src/components/BranchScreen";
+import interestRateScreen from "./src/components/InterestRateScreen"
 
 export default function App() {
   const [page, setPage] = useState<string>("login");
