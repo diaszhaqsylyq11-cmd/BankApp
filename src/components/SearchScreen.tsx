@@ -12,10 +12,20 @@ import {
 interface Props {
   onBack?: () => void;
   onSelectBranch?: () => void;
+  onSelectInterestRate?: () => void;
+  onSelectExchangeRate?: () => void;
+  onSelectExchange?: () => void;
   onHome?: () => void;
 }
 
-export default function SearchScreen({ onBack, onSelectBranch, onHome }: Props) {
+export default function SearchScreen({
+  onBack,
+  onSelectBranch,
+  onSelectInterestRate,
+  onSelectExchangeRate,
+  onSelectExchange,
+  onHome,
+}: Props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -42,7 +52,11 @@ export default function SearchScreen({ onBack, onSelectBranch, onHome }: Props) 
           </View>
         </TouchableOpacity>
 
-        <View style={styles.card}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={onSelectInterestRate}
+          activeOpacity={0.7}
+        >
           <View style={styles.cardTextContainer}>
             <Text style={styles.cardTitle}>Interest rate</Text>
             <Text style={styles.cardSubtitle}>Search for interest rate</Text>
@@ -50,9 +64,13 @@ export default function SearchScreen({ onBack, onSelectBranch, onHome }: Props) 
           <View style={styles.iconContainer}>
             <Text style={styles.cardIcon}>📈</Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.card}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={onSelectExchangeRate}
+          activeOpacity={0.7}
+        >
           <View style={styles.cardTextContainer}>
             <Text style={styles.cardTitle}>Exchange rate</Text>
             <Text style={styles.cardSubtitle}>Search for exchange rate</Text>
@@ -60,9 +78,13 @@ export default function SearchScreen({ onBack, onSelectBranch, onHome }: Props) 
           <View style={styles.iconContainer}>
             <Text style={styles.cardIcon}>💱</Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.card}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={onSelectExchange}
+          activeOpacity={0.7}
+        >
           <View style={styles.cardTextContainer}>
             <Text style={styles.cardTitle}>Exchange</Text>
             <Text style={styles.cardSubtitle}>Exchange amount of money</Text>
@@ -70,7 +92,7 @@ export default function SearchScreen({ onBack, onSelectBranch, onHome }: Props) 
           <View style={styles.iconContainer}>
             <Text style={styles.cardIcon}>📊</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </ScrollView>
 
       <View style={styles.bottomTab}>

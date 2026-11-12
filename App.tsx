@@ -13,11 +13,26 @@ import ForgotPassword from "./src/components/ForgotPassword";
 import Dashboard from "./src/components/Dashboard";
 import SearchScreen from "./src/components/SearchScreen";
 import BranchScreen from "./src/components/BranchScreen";
+import InterestRateScreen from "./src/components/InterestRateScreen";
+import ExchangeRateScreen from "./src/components/ExchangeRateScreen";
+import ExchangeScreen from "./src/components/ExchangeScreen";
 
 export default function App() {
   const [page, setPage] = useState<string>("login");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  if (page === "interest") {
+    return <InterestRateScreen onBack={() => setPage("search")} />;
+  }
+
+  if (page === "exchange-rate") {
+    return <ExchangeRateScreen onBack={() => setPage("search")} />;
+  }
+
+  if (page === "exchange") {
+    return <ExchangeScreen onBack={() => setPage("search")} />;
+  }
 
   if (page === "branch") {
     return <BranchScreen onBack={() => setPage("search")} />;
@@ -28,6 +43,9 @@ export default function App() {
       <SearchScreen
         onBack={() => setPage("dashboard")}
         onSelectBranch={() => setPage("branch")}
+        onSelectInterestRate={() => setPage("interest")}
+        onSelectExchangeRate={() => setPage("exchange-rate")}
+        onSelectExchange={() => setPage("exchange")}
         onHome={() => setPage("dashboard")}
       />
     );
