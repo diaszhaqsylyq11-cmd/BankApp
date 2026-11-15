@@ -16,6 +16,9 @@ interface Props {
   onSelectExchangeRate?: () => void;
   onSelectExchange?: () => void;
   onHome?: () => void;
+  onSearch?: () => void;
+  onMessage?: () => void;
+  onSettings?: () => void; // <--- ЖАҢА ҚОСЫЛДЫ
 }
 
 export default function SearchScreen({
@@ -25,6 +28,9 @@ export default function SearchScreen({
   onSelectExchangeRate,
   onSelectExchange,
   onHome,
+  onSearch,
+  onMessage,
+  onSettings, // <--- ЖАҢА ҚОСЫЛДЫ
 }: Props) {
   return (
     <SafeAreaView style={styles.container}>
@@ -96,19 +102,22 @@ export default function SearchScreen({
       </ScrollView>
 
       <View style={styles.bottomTab}>
-        <TouchableOpacity style={[styles.tabItem, styles.activeTab]} onPress={onHome}>
-          <Text style={styles.tabIconActive}>🏠</Text>
-          <Text style={styles.tabTextActive}>Home</Text>
+        <TouchableOpacity style={styles.tabItem} onPress={onHome}>
+          <Text style={styles.tabIcon}>🏠</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tabItem}>
-          <Text style={styles.tabIcon}>🔍</Text>
-          <Text style={styles.tabText}>Search</Text>
+        <TouchableOpacity style={[styles.tabItem, styles.activeTab]} onPress={onSearch}>
+          <Text style={styles.tabIconActive}>🔍</Text>
+          <Text style={styles.tabTextActive}>Search</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tabItem}>
+        <TouchableOpacity style={styles.tabItem} onPress={onMessage}>
+          <Text style={styles.tabIcon}>✉️</Text>
+        </TouchableOpacity>
+
+        {/* ЖАҢА БАТЫРМА ҚОСЫЛДЫ */}
+        <TouchableOpacity style={styles.tabItem} onPress={onSettings}>
           <Text style={styles.tabIcon}>⚙️</Text>
-          <Text style={styles.tabText}>Settings</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -204,6 +213,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   activeTab: {
+    backgroundColor: "#3626B8",
     flexDirection: "row",
     gap: 6,
   },
@@ -212,17 +222,11 @@ const styles = StyleSheet.create({
     color: "#8A92A6",
   },
   tabIconActive: {
-    fontSize: 18,
-  },
-  tabText: {
-    fontSize: 12,
-    color: "#8A92A6",
-    marginTop: 2,
+    fontSize: 16,
   },
   tabTextActive: {
-    fontSize: 12,
-    color: "#3626B8",
+    fontSize: 13,
+    color: "#FFFFFF",
     fontWeight: "600",
-    marginTop: 2,
   },
 });

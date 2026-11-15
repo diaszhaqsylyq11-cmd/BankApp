@@ -16,11 +16,127 @@ import BranchScreen from "./src/components/BranchScreen";
 import InterestRateScreen from "./src/components/InterestRateScreen";
 import ExchangeRateScreen from "./src/components/ExchangeRateScreen";
 import ExchangeScreen from "./src/components/ExchangeScreen";
+import Transfer from "./src/components/Transfer";
+import Confirm from "./src/components/Confirm";
+import MessageScreen from "./src/components/MessageScreen";
+import ChatScreen from "./src/components/ChatScreen";
+
+// ПРОФИЛЬ ЖӘНЕ БАПТАУЛАР БЕТТЕРІ
+import SettingScreen from "./src/components/SettingScreen";
+import ChangePasswordScreen from "./src/components/ChangePasswordScreen";
+import LanguageScreen from "./src/components/LanguageScreen";
+import AppInfoScreen from "./src/components/AppInfoScreen";
+
+// 4 БӨЛЕК БЕТ (Figma дизайны бойынша)
+import TransactionReportScreen from "./src/components/TransactionReportScreen";
+
+import AccountAndCardScreen from "./src/components/AccountAndCardScreen";
+import AccountAndCard2Screen from "./src/components/AccountAndCard2Screen";
 
 export default function App() {
   const [page, setPage] = useState<string>("login");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [transferData, setTransferData] = useState({});
+  const [chatTitle, setChatTitle] = useState<string>("Bank of America");
+
+  // --- 4 БӨЛЕК БЕТТІҢ НАВИГАЦИЯСЫ ---
+  if (page === "transaction-report-1") {
+    return <TransactionReportScreen onBack={() => setPage("dashboard")} />;
+  }
+
+  
+
+  if (page === "account-card-1") {
+    return (
+      <AccountAndCardScreen
+        onBack={() => setPage("dashboard")}
+        onSwitchToCard={() => setPage("account-card-2")}
+      />
+    );
+  }
+
+  if (page === "account-card-2") {
+    return (
+      <AccountAndCard2Screen
+        onBack={() => setPage("dashboard")}
+        onSwitchToAccount={() => setPage("account-card-1")}
+        onAddCard={() => alert("Add new card clicked")}
+      />
+    );
+  }
+  // ----------------------------------------
+
+  // --- ПРОФИЛЬ ЖӘНЕ БАПТАУЛАР НАВИГАЦИЯСЫ ---
+  if (page === "settings") {
+    return (
+      <SettingScreen
+        onBack={() => setPage("dashboard")}
+        onNavigatePassword={() => setPage("change-password")}
+        onNavigateLanguage={() => setPage("language")}
+        onNavigateAppInfo={() => setPage("app-info")}
+        onLogout={() => setPage("login")}
+      />
+    );
+  }
+
+  if (page === "change-password") {
+    return <ChangePasswordScreen onBack={() => setPage("settings")} />;
+  }
+
+  if (page === "language") {
+    return <LanguageScreen onBack={() => setPage("settings")} />;
+  }
+
+  if (page === "app-info") {
+    return <AppInfoScreen onBack={() => setPage("settings")} />;
+  }
+  // ----------------------------------------
+
+  if (page === "chat") {
+    return (
+      <ChatScreen
+        title={chatTitle}
+        onBack={() => setPage("message")}
+      />
+    );
+  }
+
+  if (page === "message") {
+    return (
+      <MessageScreen
+        onBack={() => setPage("dashboard")}
+        onHome={() => setPage("dashboard")}
+        onSearch={() => setPage("search")}
+        onSelectChat={(title: string) => {
+          setChatTitle(title);
+          setPage("chat");
+        }}
+      />
+    );
+  }
+
+  if (page === "transfer") {
+    return (
+      <Transfer
+        onBack={() => setPage("dashboard")}
+        onNext={(data: any) => {
+          setTransferData(data);
+          setPage("confirm");
+        }}
+      />
+    );
+  }
+
+  if (page === "confirm") {
+    return (
+      <Confirm
+        data={transferData}
+        onBack={() => setPage("transfer")}
+        onSuccess={() => setPage("dashboard")}
+      />
+    );
+  }
 
   if (page === "interest") {
     return <InterestRateScreen onBack={() => setPage("search")} />;
@@ -47,12 +163,22 @@ export default function App() {
         onSelectExchangeRate={() => setPage("exchange-rate")}
         onSelectExchange={() => setPage("exchange")}
         onHome={() => setPage("dashboard")}
+        onMessage={() => setPage("message")}
+        onSettings={() => setPage("settings")}
       />
     );
   }
 
   if (page === "dashboard") {
-    return <Dashboard onNavigateToSearch={() => setPage("search")} />;
+    return (
+      <Dashboard
+        onNavigateToSearch={() => setPage("search")}
+        onNavigateToTransfer={() => setPage("transfer")}
+        onNavigateToSettings={() => setPage("settings")}
+        onNavigateToAccountCard={() => setPage("account-card-1")}
+        onNavigateToTransactionReport={() => setPage("transaction-report-1")}
+      />
+    );
   }
 
   if (page === "signup") {

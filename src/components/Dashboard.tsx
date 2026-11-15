@@ -6,13 +6,25 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
+  ScrollView,
 } from "react-native";
 
 interface Props {
   onNavigateToSearch?: () => void;
+  onNavigateToTransfer?: () => void;
+  onNavigateToSettings?: () => void;
+  onNavigateToAccountCard?: () => void;
+  onNavigateToTransactionReport?: () => void;
+  onNavigateToTransactionReport2?: () => void; // <--- 2-ші бет үшін қосылды
 }
 
-export default function Dashboard({ onNavigateToSearch }: Props) {
+export default function Dashboard({
+  onNavigateToSearch,
+  onNavigateToTransfer,
+  onNavigateToSettings,
+  onNavigateToAccountCard,
+  onNavigateToTransactionReport,
+}: Props) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -21,29 +33,39 @@ export default function Dashboard({ onNavigateToSearch }: Props) {
         <Text style={styles.greeting}>Hi, Push Puttichai 🔔</Text>
       </View>
 
-      <View style={styles.content}>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.card}>
           <Text style={styles.cardName}>John Smith</Text>
           <Text style={styles.cardType}>Amazon Platinium</Text>
           <Text style={styles.cardNumber}>4756 •••• •••• 9018</Text>
-          <Text style={styles.cardBalance}>$3.469.52</Text>
+          <Text style={styles.cardBalance}>$3,469.52</Text>
         </View>
 
-        <View style={styles.menuItem}>
+        {/* Account and Card батырмасы */}
+        <TouchableOpacity style={styles.menuItem} onPress={onNavigateToAccountCard}>
           <Text style={styles.menuIcon}>💳</Text>
           <Text style={styles.menuText}>Account and Card</Text>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.menuItem}>
+        {/* Transfer батырмасы */}
+        <TouchableOpacity style={styles.menuItem} onPress={onNavigateToTransfer}>
           <Text style={styles.menuIcon}>🔀</Text>
           <Text style={styles.menuText}>Transfer</Text>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.menuItem}>
+        {/* Transaction Report #1 (График) */}
+        <TouchableOpacity style={styles.menuItem} onPress={onNavigateToTransactionReport}>
+          <Text style={styles.menuIcon}>📊</Text>
+          <Text style={styles.menuText}>Transaction Report (Chart)</Text>
+        </TouchableOpacity>
+
+      
+
+        <View style={[styles.menuItem, { marginBottom: 30 }]}>
           <Text style={styles.menuIcon}>🏛️</Text>
           <Text style={styles.menuText}>Withdraw</Text>
         </View>
-      </View>
+      </ScrollView>
 
       <View style={styles.bottomTab}>
         <TouchableOpacity style={styles.tabItem}>
@@ -56,7 +78,7 @@ export default function Dashboard({ onNavigateToSearch }: Props) {
           <Text style={styles.tabText}>Search</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tabItem}>
+        <TouchableOpacity style={styles.tabItem} onPress={onNavigateToSettings}>
           <Text style={styles.tabIcon}>⚙️</Text>
           <Text style={styles.tabText}>Settings</Text>
         </TouchableOpacity>
